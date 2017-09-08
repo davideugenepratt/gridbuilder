@@ -11,3 +11,15 @@
  *
  * @package         Gridbuilder
  */
+
+spl_autoload_register( 'gridbuilder_autoloader' );
+
+function gridbuilder_autoloader( $class_name ) {
+    if ( false !== strpos( $class_name, 'Gridbuilder' ) ) {
+        $classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR;
+        $class_file = str_replace( '_', DIRECTORY_SEPARATOR, $class_name ) . '.php';
+        require_once $classes_dir . $class_file;
+    }
+}
+
+$GridbuilderPlugin = new GridbuilderPlugin();
